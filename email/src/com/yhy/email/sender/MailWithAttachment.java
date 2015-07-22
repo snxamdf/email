@@ -35,13 +35,19 @@ public class MailWithAttachment {
 	private Properties properties = new Properties();
 
 	public MailWithAttachment() {
+		this.MailInit(false);
+	}
+
+	public MailWithAttachment(boolean debug) {
+		this.MailInit(debug);
 	}
 
 	/*
 	 * 初始化方法
 	 */
-	public MailWithAttachment(boolean debug) {
-		InputStream in = MailWithAttachment.class.getResourceAsStream("MailServer.properties");
+	private void MailInit(boolean debug) {
+
+		InputStream in = MailWithAttachment.class.getResourceAsStream("mail-server.properties");
 		try {
 			properties.load(in);
 			this.mailHost = properties.getProperty("mail.smtp.host");
