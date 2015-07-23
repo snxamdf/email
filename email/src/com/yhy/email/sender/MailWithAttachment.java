@@ -1,6 +1,5 @@
 package com.yhy.email.sender;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class MailWithAttachment {
 	 * @param attachment
 	 *            附件
 	 */
-	public void doSendHtmlEmail(String subject, String sendHtml, String receiveUser, List<String> secondsToSend, List<File> attachments) {
+	public void doSendHtmlEmail(String subject, String sendHtml, String receiveUser, List<String> secondsToSend, List<String> attachments) {
 		try {
 			// 发件人
 			InternetAddress from = new InternetAddress(sender_username);
@@ -108,11 +107,11 @@ public class MailWithAttachment {
 
 			// 添加附件的内容
 			if (attachments != null && attachments.size() > 0) {
-				for (File file : attachments) {
+				for (String filePath : attachments) {
 					BodyPart attachmentBodyPart = new MimeBodyPart();
-					DataSource source = new FileDataSource(file);
+					DataSource source = new FileDataSource(filePath);
 					attachmentBodyPart.setDataHandler(new DataHandler(source));
-					attachmentBodyPart.setFileName(MimeUtility.encodeWord(file.getName()));
+					attachmentBodyPart.setFileName(MimeUtility.encodeWord(source.getName()));
 					multipart.addBodyPart(attachmentBodyPart);
 				}
 			}
@@ -144,11 +143,9 @@ public class MailWithAttachment {
 
 	public static void main(String[] args) {
 		MailWithAttachment se = new MailWithAttachment(true);
-		List<File> affix = new ArrayList<File>();
-		File file = new File("D:\\300.jpg");
-		affix.add(file);
-		file = new File("D:\\333.jpg");
-		affix.add(file);
+		List<String> affix = new ArrayList<String>();
+		affix.add(new String("D:\\300.jpg"));
+		affix.add(new String("D:\\333.jpg"));
 
 		List<String> secondsToSend = new ArrayList<String>();
 		secondsToSend.add("qqqqq@qq.com");

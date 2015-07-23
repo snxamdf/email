@@ -9,6 +9,7 @@ public class Email {
 	private String emailId;
 	private String recipient;
 	private List<String> secondsToSend;
+	private List<String> fileListPath;
 	private String title;
 	private String content;
 
